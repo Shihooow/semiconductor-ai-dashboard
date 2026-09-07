@@ -1,0 +1,43 @@
+{
+  "_comment": "スケジュールタスクが毎朝生成するJSONの形。これは初期セットアップ用のサンプル値(暫定)で、初回の自動実行で本物の値に置き換わる。",
+  "date": "2026-09-07",
+  "sector": {
+    "sox": {"value": 6412.3, "chg_pct": 1.8},
+    "usdjpy": {"value": 147.82, "chg_pct": -0.3},
+    "tsmc_yoy": {"value": 34.0, "note": "月次発表待ち"},
+    "bb_ratio": {"value": 1.12, "note": "四半期発表待ち"}
+  },
+  "stocks": [
+    {
+      "ticker": "8035", "name": "東京エレクトロン", "us_peers": "AMAT / Lam Research",
+      "price": 28940, "chg_pct": 2.1, "chg_yen": 595,
+      "ma25_dev": 4.2, "ma75_dev": 11.8, "rsi14": 64.2,
+      "vol_ratio": 1.6, "credit_ratio": 3.1, "w52_pos": -6.4, "per": 28.4,
+      "next_earnings": "2026-10-30", "next_earnings_confirmed": true
+    },
+    {
+      "ticker": "6857", "name": "アドバンテスト", "us_peers": "Teradyne / NVIDIA（HBMテスタ需要）",
+      "price": 11285, "chg_pct": -1.3, "chg_yen": -150,
+      "ma25_dev": -1.5, "ma75_dev": 9.0, "rsi14": 48.7,
+      "vol_ratio": 0.9, "credit_ratio": 2.4, "w52_pos": -14.2, "per": 32.1,
+      "next_earnings": "2026-10-31", "next_earnings_confirmed": false
+    },
+    {
+      "ticker": "6146", "name": "ディスコ", "us_peers": "半導体後工程装置需要全般",
+      "price": 38120, "chg_pct": 3.4, "chg_yen": 1250,
+      "ma25_dev": 6.8, "ma75_dev": 15.3, "rsi14": 71.5,
+      "vol_ratio": 2.2, "credit_ratio": 4.8, "w52_pos": -2.1, "per": 41.6,
+      "next_earnings": "2026-10-30", "next_earnings_confirmed": false
+    },
+    {
+      "ticker": "6920", "name": "レーザーテック", "us_peers": "ASML（EUV検査装置で連動）",
+      "price": 19860, "chg_pct": -2.7, "chg_yen": -550,
+      "ma25_dev": -8.1, "ma75_dev": -3.4, "rsi14": 38.9,
+      "vol_ratio": 1.3, "credit_ratio": 1.6, "w52_pos": -27.8, "per": 45.2,
+      "next_earnings": "2026-11-05", "next_earnings_confirmed": false
+    }
+  ],
+  "extra_events": [
+    {"date": "2026-11-19", "date_disp": "11月中旬（未確定）", "label": "NVIDIA 決算発表 — AI関連センチメントの震源", "category": "earnings"}
+  ]
+}
