@@ -37,8 +37,11 @@ LOG_PATH = os.path.join(BASE_DIR, "log.csv")
 EVENTS_PATH = os.path.join(BASE_DIR, "events.json")
 WATCHLIST_PATH = os.path.join(BASE_DIR, "watchlist.json")
 
-STOCK_COLOR_VARS = ["stock-tel", "stock-adv", "stock-dsc", "stock-lzt"]
-# 5銘柄目以降はこの並びを繰り返す(色が重複するが致命的ではない)
+STOCK_COLOR_VARS = [
+    "stock-tel", "stock-adv", "stock-dsc", "stock-lzt",
+    "stock-5", "stock-6", "stock-7", "stock-8",
+]
+# 9銘柄目以降はこの並びを繰り返す(色が重複するが致命的ではない)
 
 
 # ---------------------------------------------------------------------------

@@ -1,18 +1,17 @@
 {
-  "_comment": "スケジュールタスクが毎朝ここを見て、どの銘柄のデータを取得するか判断する。増やす場合はここに追記し、色はupdate_dashboard.pyのSTOCK_COLOR_VARSを使い回す(5銘柄目以降は色が循環)。",
+  "_comment": "スケジュールタスクが毎朝ここを見て、どの銘柄のデータを取得するか判断する。増やす場合はここに追記し、色はupdate_dashboard.pyのSTOCK_COLOR_VARSを使い回す(9銘柄目以降は色が循環)。",
   "stocks": [
     {"ticker": "8035", "name": "東京エレクトロン", "us_peers": "AMAT / Lam Research"},
     {"ticker": "6857", "name": "アドバンテスト", "us_peers": "Teradyne / NVIDIA（HBMテスタ需要）"},
     {"ticker": "6146", "name": "ディスコ", "us_peers": "半導体後工程装置需要全般"},
-    {"ticker": "6920", "name": "レーザーテック", "us_peers": "ASML（EUV検査装置で連動）"}
+    {"ticker": "6920", "name": "レーザーテック", "us_peers": "ASML（EUV検査装置で連動）"},
+    {"ticker": "3436", "name": "SUMCO", "us_peers": "信越化学（国内競合）/ GlobalWafers"},
+    {"ticker": "4063", "name": "信越化学工業", "us_peers": "SUMCO（国内競合）/ シリコンサイクル指標"},
+    {"ticker": "7735", "name": "SCREENホールディングス", "us_peers": "Applied Materials（洗浄装置）"},
+    {"ticker": "6526", "name": "ソシオネクスト", "us_peers": "NVIDIA / Broadcom（ファブレスAI半導体）"},
+    {"ticker": "285A", "name": "キオクシアホールディングス", "us_peers": "Micron / SK Hynix（NAND市況連動）"},
+    {"ticker": "4004", "name": "レゾナック・ホールディングス", "us_peers": "住友化学（国内競合）/ 半導体材料市況"},
+    {"ticker": "9984", "name": "ソフトバンクグループ", "us_peers": "Arm Holdings（子会社）/ AI投資センチメント"}
   ],
-  "candidates_to_add": [
-    {"ticker": "3436", "name": "SUMCO", "note": "シリコンウェハ最大手"},
-    {"ticker": "4063", "name": "信越化学工業", "note": "シリコンウェハ・化学品"},
-    {"ticker": "7735", "name": "SCREENホールディングス", "note": "洗浄装置"},
-    {"ticker": "6526", "name": "ソシオネクスト", "note": "AI半導体設計"},
-    {"ticker": "285A", "name": "キオクシアホールディングス", "note": "NANDメモリ"},
-    {"ticker": "4004", "name": "レゾナック・ホールディングス", "note": "半導体材料"},
-    {"ticker": "9984", "name": "ソフトバンクグループ", "note": "Arm・AI投資"}
-  ]
+  "candidates_to_add": []
 }
