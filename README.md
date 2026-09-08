@@ -17,12 +17,13 @@ pushに使うfine-grainedトークンは、VIXダッシュボードと同じや�
 ## ファイル構成
 - `index.html` — 毎朝自動更新される最新状況（ブラウザで開くだけ。オフラインOK）
   - セクター先行指標（SOX指数・USD/JPY・TSMC月次売上高・BBレシオ）
-  - 銘柄別ウォッチ指標（東京エレクトロン・アドバンテスト・ディスコ・レーザーテック）
+  - 銘柄別ウォッチ指標（🇯🇵日本タブ＝保有想定銘柄、🇺🇸米国タブ＝先行指標として値動きのみ参考。タブで切替）
   - イベントカレンダー（BOJ・FOMC・各社決算・カウントダウン表示）
   - リスク管理チェックリスト／指標の見方メモ（固定コンテンツ）
-- `log.csv` — セクター指標・銘柄別指標の日次記録（Excelで開けます）
+  - ヘッダーに「更新日時」（生成した実時刻）と「基準」（データの基準日時）を表示
+- `log.csv` — セクター指標・銘柄別指標・米国先行指標銘柄の日次記録（Excelで開けます）
 - `events.json` — BOJ・FOMCなどマクロイベントの日程（**要メンテナンス**。2027年分が発表され次第追記）
-- `watchlist.json` — 監視銘柄リスト。増やしたい銘柄はここに追記（`candidates_to_add`に候補を用意済み）
+- `watchlist.json` — 監視銘柄リスト。増やしたい銘柄はここに追記（`candidates_to_add`に候補を用意済み）。`us_watchlist`は米国タブ用の先行指標銘柄リスト（しほさんは売買せず、値動きの参考のみ）
 - `取引判断ログ.csv` — 仕込み・決済などの判断を手動で記録する用（非公開）
 - `scripts/template.html` — デザインテンプレート（プレースホルダー`{{...}}`を含む静的HTML）
 - `scripts/update_dashboard.py` — テンプレートにデータを差し込んで`index.html`を再生成し、`log.csv`に追記するスクリプト
@@ -35,13 +36,15 @@ VIXはCboeから数値をそのまま取得できましたが、個別株は「2
 まとめて読み取るのが現実的です。想定フロー:
 
 1. 平日 朝6:30頃、スケジュールタスクが起動
-2. WebFetchで各銘柄（東京エレクトロン8035・アドバンテスト6857・ディスコ6146・レーザーテック6920）の
-   指標ページを取得し、現在値・前日比・25日/75日移動平均乖離率・RSI(14)・出来高倍率・信用倍率・
-   52週高値位置・PERを抽出
+2. WebFetchで`watchlist.json`の各銘柄の指標ページを取得し、現在値・前日比・25日/75日移動平均乖離率・
+   RSI(14)・出来高倍率・信用倍率・52週高値位置・PERを抽出
 3. WebFetchでSOX指数・USD/JPYを取得（TSMC月次売上高・BBレシオは変化があった時だけ差し替え）
-4. 上記をまとめて `scripts/tmp_data.json` に書き出す
-5. `python3 scripts/update_dashboard.py scripts/tmp_data.json` を実行
-6. `git add -A && git commit -m "daily update" && git push` でGitHub Pagesに反映
+4. WebFetchで`watchlist.json`の`us_watchlist`（米国タブ用・8銘柄）の現在値・前日比を取得
+   （こちらは日本株のような詳細テクニカル指標は不要。先行指標として値動きだけ分かればよい）
+5. 上記をまとめて `scripts/tmp_data.json` に書き出す（`us_market.asof_date`には取得した米国市場の
+   取引日を入れる）
+6. `python3 scripts/update_dashboard.py scripts/tmp_data.json` を実行
+7. `git add -A && git commit -m "daily update" && git push` でGitHub Pagesに反映
 
 ## セットアップ手順（しほさんにお願いしたい部分）
 このスクリプト・フォルダは用意できましたが、以下の3点はGitHub側の認証が必要なため

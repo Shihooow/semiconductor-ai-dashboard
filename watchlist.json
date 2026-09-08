@@ -13,5 +13,16 @@
     {"ticker": "4004", "name": "レゾナック・ホールディングス", "us_peers": "住友化学（国内競合）/ 半導体材料市況"},
     {"ticker": "9984", "name": "ソフトバンクグループ", "us_peers": "Arm Holdings（子会社）/ AI投資センチメント"}
   ],
-  "candidates_to_add": []
+  "candidates_to_add": [],
+  "_us_comment": "米国タブ（先行指標）用。しほさんは米国株は売買しない前提で、寝ている間の米国市場の動きを翌朝の日本株の参考にするための銘柄リスト。価格・前日比のみ取得（テクニカル指標は取らない）。",
+  "us_watchlist": [
+    {"ticker": "NVDA", "name": "NVIDIA", "jp_related": "アドバンテスト / ソシオネクスト"},
+    {"ticker": "AMAT", "name": "Applied Materials", "jp_related": "東京エレクトロン / SCREEN"},
+    {"ticker": "LRCX", "name": "Lam Research", "jp_related": "東京エレクトロン"},
+    {"ticker": "TER", "name": "Teradyne", "jp_related": "アドバンテスト"},
+    {"ticker": "ASML", "name": "ASML Holding", "jp_related": "レーザーテック"},
+    {"ticker": "MU", "name": "Micron Technology", "jp_related": "キオクシアホールディングス"},
+    {"ticker": "AVGO", "name": "Broadcom", "jp_related": "ソシオネクスト"},
+    {"ticker": "ARM", "name": "Arm Holdings", "jp_related": "ソフトバンクグループ"}
+  ]
 }

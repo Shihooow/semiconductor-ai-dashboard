@@ -19,8 +19,16 @@ VIXダッシュボード(scripts/update_dashboard.py)と同じ設計思想:
        現在値/前日比/25日・75日移動平均乖離率/RSI(14)/出来高倍率/信用倍率/52週高値位置/PERを抽出
     2. WebFetch で SOX指数・USD/JPY を取得
     3. TSMC月次売上高・BBレシオは月次/四半期更新なので、変化があった日だけ差し替え
-    4. 上記をまとめた JSON を書き出し、このスクリプトを実行
-    5. git add / commit / push (リモートは事前に fine-grained PAT 付きで設定済みの想定)
+    4. WebFetch で watchlist.json の us_watchlist(米国タブ用8銘柄)の現在値・前日比を取得
+       (詳細テクニカル指標は不要。先行指標として値動きだけ分かればよい)
+    5. 上記をまとめた JSON(us_market.stocks を含む)を書き出し、このスクリプトを実行
+    6. git add / commit / push (リモートは事前に fine-grained PAT 付きで設定済みの想定)
+
+ページ表示について:
+    - ヘッダーの「更新日時」はこのスクリプトを実行した実時刻(自動計算、JSON不要)
+    - ヘッダーの「基準」は <data.json> の date (前日終値の基準日) + 15:00 (東証の大引け目安)
+    - 銘柄別ウォッチ指標セクションは 🇯🇵日本 / 🇺🇸米国 のタブ切り替え。
+      日本タブ=保有想定銘柄(stocks)、米国タブ=先行指標(us_market.stocks)
 """
 
 import sys
@@ -28,6 +36,18 @@ import csv
 import json
 import os
 from datetime import date, datetime, timedelta
+try:
+    from zoneinfo import ZoneInfo
+    JST = ZoneInfo("Asia/Tokyo")
+except Exception:
+    JST = None
+
+
+def now_jst():
+    """実行環境のタイムゾーン設定に関わらず、常に日本時間の現在時刻を返す。"""
+    if JST is not None:
+        return datetime.now(JST)
+    return datetime.now()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -180,7 +200,7 @@ def build_stock_cards(stocks, today):
           </div>
           <div class="price-block">
             <div class="price">{fmt_yen(s.get('price'))}</div>
-            <div class="change" style="color:var(--{chg_class})">{chg_sign}{fmt_pct(chg_pct)} {chg_yen_txt}</div>
+            <div class="change" style="color:var(--{chg_class})">{fmt_pct(chg_pct)} {chg_yen_txt}</div>
           </div>
         </div>
         <div class="body">
@@ -195,6 +215,37 @@ def build_stock_cards(stocks, today):
         <div class="footnote">
           <span class="fx-note">{ne_footnote}</span>
           <span class="cd-pill {ne_level}" data-cd="{ne_date or ''}">{cd_label(ne_days)}</span>
+        </div>
+      </div>''')
+    return "\n".join(cards)
+
+
+def build_us_stock_cards(us_stocks):
+    cards = []
+    for i, s in enumerate(us_stocks):
+        color = STOCK_COLOR_VARS[i % len(STOCK_COLOR_VARS)]
+        chg_pct = s.get("chg_pct")
+        chg_class = "good" if (chg_pct or 0) >= 0 else "critical"
+        chg_sign = "+" if (chg_pct or 0) >= 0 else ""
+        chg_usd = s.get("chg_usd")
+        chg_usd_txt = f"({chg_sign}{chg_usd:,.2f})" if chg_usd is not None else ""
+        price = s.get("price")
+        price_txt = f"${price:,.2f}" if price is not None else "―"
+
+        cards.append(f'''
+      <div class="stock-card us-card" style="--accent-line:var(--{color})">
+        <div class="head">
+          <div class="name-block">
+            <div class="ticker">{s['ticker']}</div>
+            <div class="name">{s['name']}</div>
+          </div>
+          <div class="price-block">
+            <div class="price">{price_txt}</div>
+            <div class="change" style="color:var(--{chg_class})">{fmt_pct(chg_pct)} {chg_usd_txt}</div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="metric-row"><span class="m-label">日本の関連銘柄</span><span class="m-value">{s.get('jp_related', '―')}</span></div>
         </div>
       </div>''')
     return "\n".join(cards)
@@ -266,6 +317,13 @@ def append_log(data):
             fieldnames.append(colname)
             row[colname] = s.get(key)
 
+    for s in data.get("us_market", {}).get("stocks", []):
+        prefix = f"us_{s['ticker']}"
+        for key in ["price", "chg_pct"]:
+            colname = f"{prefix}_{key}"
+            fieldnames.append(colname)
+            row[colname] = s.get(key)
+
     # 既存ファイルがあれば列構成を維持しつつ追記(新しい銘柄が増えた場合はヘッダーを書き直す)
     existing_rows = []
     existing_fields = []
@@ -322,14 +380,30 @@ def main():
     with open(TEMPLATE_PATH, "r", encoding="utf-8") as f:
         html = f.read()
 
+    updated_text = now_jst().strftime("%Y/%m/%d %H:%M")
+    asof_text = today.strftime("%Y/%m/%d") + " 15:00"
+
+    us_market = data.get("us_market", {})
+    us_asof_date = us_market.get("asof_date")
+    if us_asof_date:
+        try:
+            us_asof_text = datetime.strptime(us_asof_date, "%Y-%m-%d").strftime("%Y/%m/%d") + " 16:00（米国東部時間）"
+        except ValueError:
+            us_asof_text = us_asof_date
+    else:
+        us_asof_text = "―"
+
     replacements = {
         "{{BADGE_CLASS}}": "live",
         "{{BADGE_TEXT}}": "● 自動更新（前日終値ベース）",
-        "{{ASOF_TEXT}}": f"基準日: {data['date']}",
+        "{{UPDATED_TEXT}}": updated_text,
+        "{{ASOF_TEXT}}": asof_text,
+        "{{US_ASOF_TEXT}}": us_asof_text,
         "{{STOCK_CHIPS}}": build_stock_chips(data["stocks"]),
         "{{KPI_TILES}}": build_kpi_tiles(data["sector"]),
         "{{CALENDAR_ROWS}}": build_calendar_rows(all_events, today),
-        "{{STOCK_CARDS}}": build_stock_cards(data["stocks"], today),
+        "{{JP_STOCK_CARDS}}": build_stock_cards(data["stocks"], today),
+        "{{US_STOCK_CARDS}}": build_us_stock_cards(us_market.get("stocks", [])),
         "{{FOOTER_NOTES}}": (
             "<p>※ データ取得元: Yahoo Finance / 各社IRサイト（毎朝スケジュールタスクが自動取得・生成）。"
             "「見込み・要確認」表示の決算日は正式発表前の推定です。</p>"

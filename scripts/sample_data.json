@@ -1,5 +1,5 @@
 {
-  "_comment": "スケジュールタスクが毎朝生成するJSONの形。これは初期セットアップ用のサンプル値(暫定)で、初回の自動実行で本物の値に置き換わる。",
+  "_comment": "スケジュールタスクが毎朝生成するJSONの形。これは初期セットアップ用のサンプル値(暫定)で、初回の自動実行で本物の値に置き換わる。us_marketは日本株の先行指標として見る米国半導体関連8銘柄(watchlist.jsonのus_watchlist参照)。",
   "date": "2026-09-07",
   "sector": {
     "sox": {"value": 6412.3, "chg_pct": 1.8},
@@ -86,6 +86,19 @@
       "next_earnings": "2026-11-11", "next_earnings_confirmed": false
     }
   ],
+  "us_market": {
+    "asof_date": "2026-09-05",
+    "stocks": [
+      {"ticker": "NVDA", "name": "NVIDIA", "jp_related": "アドバンテスト / ソシオネクスト", "price": 187.32, "chg_pct": 2.4, "chg_usd": 4.39},
+      {"ticker": "AMAT", "name": "Applied Materials", "jp_related": "東京エレクトロン / SCREEN", "price": 214.10, "chg_pct": 1.1, "chg_usd": 2.33},
+      {"ticker": "LRCX", "name": "Lam Research", "jp_related": "東京エレクトロン", "price": 98.76, "chg_pct": 0.6, "chg_usd": 0.59},
+      {"ticker": "TER", "name": "Teradyne", "jp_related": "アドバンテスト", "price": 142.55, "chg_pct": -0.8, "chg_usd": -1.15},
+      {"ticker": "ASML", "name": "ASML Holding", "jp_related": "レーザーテック", "price": 968.20, "chg_pct": 1.9, "chg_usd": 18.04},
+      {"ticker": "MU", "name": "Micron Technology", "jp_related": "キオクシアホールディングス", "price": 112.44, "chg_pct": 3.1, "chg_usd": 3.38},
+      {"ticker": "AVGO", "name": "Broadcom", "jp_related": "ソシオネクスト", "price": 289.60, "chg_pct": 0.9, "chg_usd": 2.58},
+      {"ticker": "ARM", "name": "Arm Holdings", "jp_related": "ソフトバンクグループ", "price": 154.33, "chg_pct": -1.4, "chg_usd": -2.19}
+    ]
+  },
   "extra_events": [
     {"date": "2026-11-19", "date_disp": "11月中旬（未確定）", "label": "NVIDIA 決算発表 — AI関連センチメントの震源", "category": "earnings"}
   ]
