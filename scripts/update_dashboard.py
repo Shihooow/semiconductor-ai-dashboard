@@ -129,6 +129,50 @@ def cd_label(days):
 
 
 # ---------------------------------------------------------------------------
+# 「最新の値ではない可能性」アラートマーク
+# ---------------------------------------------------------------------------
+# 各stock要素に任意で "stale_fields": ["price","technical","vol_ratio","credit_ratio","w52_pos","per"]
+# を持たせると、該当項目のラベル横に⚠マークが付く（取得元のキャッシュが古い/基準日がずれている場合などに指定）。
+# 値そのものがnull(未取得)の項目は、指定がなくても自動でマークされる。
+# credit_ratio(信用倍率)は性質上つねに週次更新で直近営業日より古いため、値がある限り自動でマークする。
+
+STOCK_FLAG_KEYS = {
+    "price": ["price", "chg_pct"],
+    "technical": ["ma25_dev", "ma75_dev", "rsi14"],
+    "vol_ratio": ["vol_ratio"],
+    "credit_ratio": ["credit_ratio"],
+    "w52_pos": ["w52_pos"],
+    "per": ["per"],
+}
+
+
+def stock_flag(s, group, note):
+    keys = STOCK_FLAG_KEYS.get(group, [])
+    missing = any(s.get(k) is None for k in keys) if keys else False
+    stale_fields = s.get("stale_fields") or []
+    explicitly_stale = group in stale_fields
+    always_lagging = group == "credit_ratio" and not missing
+    if not (missing or explicitly_stale or always_lagging):
+        return ""
+    if missing:
+        tip = "この項目は取得できませんでした（前回値の引き継ぎもありません）"
+    else:
+        tip = note
+    return f' <span class="stale-flag" title="{tip}">⚠</span>'
+
+
+def sector_flag(entry):
+    if not entry:
+        return ""
+    if entry.get("value") is None:
+        return ' <span class="stale-flag" title="この項目は取得できませんでした">⚠</span>'
+    if entry.get("stale") or entry.get("note"):
+        tip = entry.get("stale_note") or entry.get("note") or "最新の値ではない可能性があります"
+        return f' <span class="stale-flag" title="{tip}">⚠</span>'
+    return ""
+
+
+# ---------------------------------------------------------------------------
 # セクションビルダー
 # ---------------------------------------------------------------------------
 
@@ -168,7 +212,7 @@ def build_kpi_tiles(sector):
         chg_text = fmt_pct(chg, 1) if chg is not None else entry.get("note", "―")
         tiles.append(f'''
       <div class="kpi">
-        <div class="label">{meta['label']}</div>
+        <div class="label">{meta['label']}{sector_flag(entry)}</div>
         <div class="value-row"><span class="value">{meta['fmt'](value)}</span><span class="delta {dclass}">{chg_text}</span></div>
         <div class="desc">{meta['desc']}</div>
       </div>''')
@@ -199,17 +243,17 @@ def build_stock_cards(stocks, today):
             <div class="name">{s['name']}</div>
           </div>
           <div class="price-block">
-            <div class="price">{fmt_yen(s.get('price'))}</div>
+            <div class="price">{fmt_yen(s.get('price'))}{stock_flag(s, "price", "現在値・前日比が最新の取引日と異なる可能性があります")}</div>
             <div class="change" style="color:var(--{chg_class})">{fmt_pct(chg_pct)} {chg_yen_txt}</div>
           </div>
         </div>
         <div class="body">
-          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">{fmt_pct(s.get('ma25_dev'))} / {fmt_pct(s.get('ma75_dev'))}</span></div>
+          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率{stock_flag(s, "technical", "移動平均乖離率・RSIの基準日が直近営業日と異なる可能性があります")}</span><span class="m-value">{fmt_pct(s.get('ma25_dev'))} / {fmt_pct(s.get('ma75_dev'))}</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">{fmt_num(s.get('rsi14'))}</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">{fmt_num(s.get('vol_ratio'))}倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">{fmt_num(s.get('credit_ratio'))}倍</span></div>
-          <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">{fmt_pct(s.get('w52_pos'))}</span></div>
-          <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">{fmt_num(s.get('per'))}倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均）{stock_flag(s, "vol_ratio", "出来高の5日平均比データが取得できませんでした")}</span><span class="m-value">{fmt_num(s.get('vol_ratio'))}倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）{stock_flag(s, "credit_ratio", "信用倍率は週次(木曜発表)集計のため直近営業日の値ではありません")}</span><span class="m-value">{fmt_num(s.get('credit_ratio'))}倍</span></div>
+          <div class="metric-row"><span class="m-label">52週高値からの位置{stock_flag(s, "w52_pos", "52週高値・安値または現在値の基準日が直近営業日と異なる可能性があります")}</span><span class="m-value">{fmt_pct(s.get('w52_pos'))}</span></div>
+          <div class="metric-row"><span class="m-label">PER（同業比較）{stock_flag(s, "per", "PERの基準日が直近営業日と異なる可能性があります")}</span><span class="m-value">{fmt_num(s.get('per'))}倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">{s.get('us_peers', '―')}</span></div>
         </div>
         <div class="footnote">
@@ -240,7 +284,7 @@ def build_us_stock_cards(us_stocks):
             <div class="name">{s['name']}</div>
           </div>
           <div class="price-block">
-            <div class="price">{price_txt}</div>
+            <div class="price">{price_txt}{stock_flag(s, "price", "米国市場の終値・前日比が最新の取引日と異なる可能性があります")}</div>
             <div class="change" style="color:var(--{chg_class})">{fmt_pct(chg_pct)} {chg_usd_txt}</div>
           </div>
         </div>

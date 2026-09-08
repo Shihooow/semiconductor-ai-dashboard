@@ -219,6 +219,7 @@
   .metric-row:last-of-type{border-bottom:none;}
   .metric-row .m-label{font-size:12.5px; color:var(--ink-2);}
   .metric-row .m-value{font-family:"JetBrains Mono",monospace; font-size:13px; font-weight:600;}
+  .stale-flag{font-size:11px; color:var(--warning); cursor:help; margin-left:3px;}
   .stock-card .footnote{
     padding:10px 18px; background:var(--surface-raised); border-top:1px solid var(--border);
     display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
@@ -289,7 +290,7 @@
     </div>
     <div class="top-meta">
       <span class="badge live">● 自動更新（前日終値ベース）</span>
-      <span class="updated" id="updated-at">更新日時: 2026/09/09 08:47</span>
+      <span class="updated" id="updated-at">更新日時: 2026/09/09 08:56</span>
       <span class="updated" id="asof-at">基準: 2026/09/08 15:00</span>
       <div class="chip-row">
         <span class="stock-chip" style="color:var(--stock-tel); border-color:var(--stock-tel);">8035 東京エレクトロン</span>
@@ -328,13 +329,13 @@
       </div>
 
       <div class="kpi">
-        <div class="label">TSMC 月次売上高（前年同月比）</div>
+        <div class="label">TSMC 月次売上高（前年同月比） <span class="stale-flag" title="2026年7月度実績（8月分は月初発表待ち）">⚠</span></div>
         <div class="value-row"><span class="value">+45%</span><span class="delta flat">2026年7月度実績（8月分は月初発表待ち）</span></div>
         <div class="desc">世界の半導体需要の先行指標。台湾積体電路製造が毎月10日前後に発表。AI向け需要の体温計。</div>
       </div>
 
       <div class="kpi">
-        <div class="label">北米半導体製造装置 BBレシオ</div>
+        <div class="label">北米半導体製造装置 BBレシオ <span class="stale-flag" title="SEMIの北米BBレシオは公式に公表終了のため前回値を維持">⚠</span></div>
         <div class="value-row"><span class="value">1.12</span><span class="delta flat">SEMIの北米BBレシオは公式に公表終了のため前回値を維持</span></div>
         <div class="desc">受注額÷出荷額。SEMIが四半期ごとに発表。1.00超が受注超過＝装置株に追い風のサイン。</div>
       </div>
@@ -411,8 +412,8 @@
         <div class="body">
           <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">-3.4% / -13.2%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">47.0</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">12.0倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="信用倍率は週次(木曜発表)集計のため直近営業日の値ではありません">⚠</span></span><span class="m-value">12.0倍</span></div>
           <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">-33.5%</span></div>
           <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">33.5倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">AMAT / Lam Research</span></div>
@@ -437,8 +438,8 @@
         <div class="body">
           <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">-1.6% / +9.8%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">44.5</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">1.2倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="信用倍率は週次(木曜発表)集計のため直近営業日の値ではありません">⚠</span></span><span class="m-value">1.2倍</span></div>
           <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">-12.7%</span></div>
           <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">37.1倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">Teradyne / NVIDIA（HBMテスタ需要）</span></div>
@@ -463,9 +464,9 @@
         <div class="body">
           <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">-10.4% / -20.6%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">30.9</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">8.3倍</span></div>
-          <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">―</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="信用倍率は週次(木曜発表)集計のため直近営業日の値ではありません">⚠</span></span><span class="m-value">8.3倍</span></div>
+          <div class="metric-row"><span class="m-label">52週高値からの位置 <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―</span></div>
           <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">33.0倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">半導体後工程装置需要全般</span></div>
         </div>
@@ -487,10 +488,10 @@
           </div>
         </div>
         <div class="body">
-          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">-11.1% / -21.3%</span></div>
+          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率 <span class="stale-flag" title="移動平均乖離率・RSIの基準日が直近営業日と異なる可能性があります">⚠</span></span><span class="m-value">-11.1% / -21.3%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">17.9</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">11.3倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="信用倍率は週次(木曜発表)集計のため直近営業日の値ではありません">⚠</span></span><span class="m-value">11.3倍</span></div>
           <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">-40.4%</span></div>
           <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">34.8倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">ASML（EUV検査装置で連動）</span></div>
@@ -508,17 +509,17 @@
             <div class="name">SUMCO</div>
           </div>
           <div class="price-block">
-            <div class="price">¥3,229</div>
+            <div class="price">¥3,229 <span class="stale-flag" title="現在値・前日比が最新の取引日と異なる可能性があります">⚠</span></div>
             <div class="change" style="color:var(--good)">+2.5% (+79)</div>
           </div>
         </div>
         <div class="body">
-          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">-8.2% / -16.2%</span></div>
+          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率 <span class="stale-flag" title="移動平均乖離率・RSIの基準日が直近営業日と異なる可能性があります">⚠</span></span><span class="m-value">-8.2% / -16.2%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">20.8</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">6.0倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="信用倍率は週次(木曜発表)集計のため直近営業日の値ではありません">⚠</span></span><span class="m-value">6.0倍</span></div>
           <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">-45.6%</span></div>
-          <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">PER（同業比較） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">信越化学（国内競合）/ GlobalWafers</span></div>
         </div>
         <div class="footnote">
@@ -539,10 +540,10 @@
           </div>
         </div>
         <div class="body">
-          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">-3.3% / -13.6%</span></div>
+          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率 <span class="stale-flag" title="移動平均乖離率・RSIの基準日が直近営業日と異なる可能性があります">⚠</span></span><span class="m-value">-3.3% / -13.6%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">17.8</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">18.7倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="信用倍率は週次(木曜発表)集計のため直近営業日の値ではありません">⚠</span></span><span class="m-value">18.7倍</span></div>
           <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">-28.1%</span></div>
           <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">20.2倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">SUMCO（国内競合）/ シリコンサイクル指標</span></div>
@@ -565,10 +566,10 @@
           </div>
         </div>
         <div class="body">
-          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">-2.6% / -10.1%</span></div>
+          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率 <span class="stale-flag" title="移動平均乖離率・RSIの基準日が直近営業日と異なる可能性があります">⚠</span></span><span class="m-value">-2.6% / -10.1%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">26.8</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">7.2倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="信用倍率は週次(木曜発表)集計のため直近営業日の値ではありません">⚠</span></span><span class="m-value">7.2倍</span></div>
           <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">-32.9%</span></div>
           <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">21.8倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">Applied Materials（洗浄装置）</span></div>
@@ -593,8 +594,8 @@
         <div class="body">
           <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">-4.6% / -19.5%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">50.6</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">6.0倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="信用倍率は週次(木曜発表)集計のため直近営業日の値ではありません">⚠</span></span><span class="m-value">6.0倍</span></div>
           <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">-40.6%</span></div>
           <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">33.3倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">NVIDIA / Broadcom（ファブレスAI半導体）</span></div>
@@ -617,12 +618,12 @@
           </div>
         </div>
         <div class="body">
-          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">+14.3% / -10.7%</span></div>
+          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率 <span class="stale-flag" title="移動平均乖離率・RSIの基準日が直近営業日と異なる可能性があります">⚠</span></span><span class="m-value">+14.3% / -10.7%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">53.4</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
           <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">-49.1%</span></div>
-          <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">PER（同業比較） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">Micron / SK Hynix（NAND市況連動）</span></div>
         </div>
         <div class="footnote">
@@ -643,10 +644,10 @@
           </div>
         </div>
         <div class="body">
-          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">-2.8% / -6.0%</span></div>
+          <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率 <span class="stale-flag" title="移動平均乖離率・RSIの基準日が直近営業日と異なる可能性があります">⚠</span></span><span class="m-value">-2.8% / -6.0%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">29.8</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">68.1倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="信用倍率は週次(木曜発表)集計のため直近営業日の値ではありません">⚠</span></span><span class="m-value">68.1倍</span></div>
           <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">-23.5%</span></div>
           <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">25.3倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">住友化学（国内競合）/ 半導体材料市況</span></div>
@@ -671,10 +672,10 @@
         <div class="body">
           <div class="metric-row"><span class="m-label">25日線 / 75日線 乖離率</span><span class="m-value">+19.7% / +6.8%</span></div>
           <div class="metric-row"><span class="m-label">RSI(14)</span><span class="m-value">72.9</span></div>
-          <div class="metric-row"><span class="m-label">出来高（対5日平均）</span><span class="m-value">―倍</span></div>
-          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残）</span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">出来高（対5日平均） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">信用倍率（買い残÷売り残） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
           <div class="metric-row"><span class="m-label">52週高値からの位置</span><span class="m-value">-26.8%</span></div>
-          <div class="metric-row"><span class="m-label">PER（同業比較）</span><span class="m-value">―倍</span></div>
+          <div class="metric-row"><span class="m-label">PER（同業比較） <span class="stale-flag" title="この項目は取得できませんでした（前回値の引き継ぎもありません）">⚠</span></span><span class="m-value">―倍</span></div>
           <div class="metric-row"><span class="m-label">米国連動参考銘柄</span><span class="m-value">Arm Holdings（子会社）/ AI投資センチメント</span></div>
         </div>
         <div class="footnote">
