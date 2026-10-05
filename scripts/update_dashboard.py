@@ -439,7 +439,7 @@ def main():
 
     replacements = {
         "{{BADGE_CLASS}}": "live",
-        "{{BADGE_TEXT}}": "● 自動更新（前日終値ベース）",
+        "{{BADGE_TEXT}}": "● 自動更新（終値ベース）",
         "{{UPDATED_TEXT}}": updated_text,
         "{{ASOF_TEXT}}": asof_text,
         "{{US_ASOF_TEXT}}": us_asof_text,
@@ -449,7 +449,7 @@ def main():
         "{{JP_STOCK_CARDS}}": build_stock_cards(data["stocks"], today),
         "{{US_STOCK_CARDS}}": build_us_stock_cards(us_market.get("stocks", [])),
         "{{FOOTER_NOTES}}": (
-            "<p>※ データ取得元: Yahoo Finance / 各社IRサイト（毎朝スケジュールタスクが自動取得・生成）。"
+            "<p>※ データ取得元: Yahoo Finance（yfinance）。TSMC月次・BBレシオ・決算日・信用倍率は manual.json の手動値（GitHub Actionsが平日朝・夕に自動取得・生成）。"
             "「見込み・要確認」表示の決算日は正式発表前の推定です。</p>"
             "<p>取引判断ログ.csv は自動公開されません（.gitignore対象）。"
             "このダッシュボードはデモトレードの練習用であり、投資助言ではありません。</p>"
