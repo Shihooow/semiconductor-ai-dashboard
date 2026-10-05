@@ -1,0 +1,25 @@
+{
+  "_comment": "自動取得できない項目をここで手動管理します。GitHub上で編集→コミットすれば、次回の自動更新で反映されます。",
+  "sector": {
+    "tsmc_yoy": {"value": 53.3, "note": "2026年8月度実績(前年同月比+53.3%、4カ月連続で過去最高)。9月度は10月上旬発表予定のため前回値を維持"},
+    "bb_ratio": {"value": 1.12, "note": "SEMIの北米BBレシオは公式に公表終了のため前回値を維持"}
+  },
+  "earnings": {
+    "8035": {"date": "2026-10-30", "confirmed": true},
+    "6857": {"date": "2026-10-28", "confirmed": false},
+    "6146": {"date": "2026-10-22", "confirmed": true},
+    "6920": {"date": "2026-11-05", "confirmed": false},
+    "3436": {"date": "2026-10-29", "confirmed": false},
+    "4063": {"date": "2026-10-23", "confirmed": false},
+    "7735": {"date": "2026-10-29", "confirmed": false},
+    "6526": {"date": "2026-11-06", "confirmed": false},
+    "285A": {"date": "2026-11-06", "confirmed": false},
+    "4004": {"date": "2026-10-30", "confirmed": false},
+    "9984": {"date": "2026-11-11", "confirmed": false}
+  },
+  "_credit_comment": "信用倍率は自動取得できないため、ここに書いた値を表示します（null なら直近のlog.csvの値を引き継ぎ）。週次（木曜発表）なので気が向いた時の更新でOK。",
+  "credit_ratio": {},
+  "extra_events": [
+    {"date": "2026-11-19", "date_disp": "11月中旬（未確定）", "label": "NVIDIA 決算発表 — AI関連センチメントの震源", "category": "earnings"}
+  ]
+}
