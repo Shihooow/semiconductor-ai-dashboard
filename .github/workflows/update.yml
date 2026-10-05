@@ -1,0 +1,38 @@
+name: Update data
+
+on:
+  schedule:
+    - cron: "45 22 * * 0-4"   # 平日 7:45 JST（前日の東証終値＋米国市場の結果）
+    - cron: "30 7 * * 1-5"    # 平日 16:30 JST（当日の東証終値）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/fetch_data.py
+      - run: python scripts/update_dashboard.py scripts/tmp_data.json
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html log.csv
+          if git diff --cached --quiet; then
+            echo "変更なし"
+          else
+            git commit -m "daily update: $(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M') JST"
+            git pull --rebase
+            git push
+          fi
